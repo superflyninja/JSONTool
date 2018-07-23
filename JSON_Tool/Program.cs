@@ -14,9 +14,16 @@ namespace JSON_Tool
         [STAThread]
         static void Main()
         {
+            
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            JSONFormController controller = new JSONFormController();
+            JSONTool jTool = new JSONTool(controller);
+
+            Application.Run(jTool);
+
         }
     }
 }
