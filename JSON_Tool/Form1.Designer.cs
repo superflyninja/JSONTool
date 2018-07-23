@@ -42,6 +42,7 @@
             this.addStepBtn = new System.Windows.Forms.Button();
             this.addQuestionBtn = new System.Windows.Forms.Button();
             this.infoPanel = new System.Windows.Forms.Panel();
+            this.totalNumQuestionsLabel = new System.Windows.Forms.Label();
             this.infoFormNameLabel = new System.Windows.Forms.Label();
             this.totalNumsectionsLabel = new System.Windows.Forms.Label();
             this.totalStepsLabel = new System.Windows.Forms.Label();
@@ -72,11 +73,10 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.questionNameTextBox = new System.Windows.Forms.TextBox();
-            this.totalNumQuestionsLabel = new System.Windows.Forms.Label();
             this.newGuidButton = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.conditionsCheckbox = new System.Windows.Forms.CheckBox();
+            this.requiredCheckBox = new System.Windows.Forms.CheckBox();
+            this.visibleCheckBox = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.infoPanel.SuspendLayout();
             this.currentStepinfoPanel.SuspendLayout();
@@ -197,6 +197,16 @@
             this.infoPanel.Name = "infoPanel";
             this.infoPanel.Size = new System.Drawing.Size(470, 205);
             this.infoPanel.TabIndex = 6;
+            // 
+            // totalNumQuestionsLabel
+            // 
+            this.totalNumQuestionsLabel.AutoSize = true;
+            this.totalNumQuestionsLabel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.totalNumQuestionsLabel.Location = new System.Drawing.Point(174, 132);
+            this.totalNumQuestionsLabel.MinimumSize = new System.Drawing.Size(200, 0);
+            this.totalNumQuestionsLabel.Name = "totalNumQuestionsLabel";
+            this.totalNumQuestionsLabel.Size = new System.Drawing.Size(200, 17);
+            this.totalNumQuestionsLabel.TabIndex = 16;
             // 
             // infoFormNameLabel
             // 
@@ -477,16 +487,6 @@
             this.questionNameTextBox.Size = new System.Drawing.Size(360, 22);
             this.questionNameTextBox.TabIndex = 17;
             // 
-            // totalNumQuestionsLabel
-            // 
-            this.totalNumQuestionsLabel.AutoSize = true;
-            this.totalNumQuestionsLabel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.totalNumQuestionsLabel.Location = new System.Drawing.Point(174, 132);
-            this.totalNumQuestionsLabel.MinimumSize = new System.Drawing.Size(200, 0);
-            this.totalNumQuestionsLabel.Name = "totalNumQuestionsLabel";
-            this.totalNumQuestionsLabel.Size = new System.Drawing.Size(200, 17);
-            this.totalNumQuestionsLabel.TabIndex = 16;
-            // 
             // newGuidButton
             // 
             this.newGuidButton.BackColor = System.Drawing.SystemColors.AppWorkspace;
@@ -498,44 +498,45 @@
             this.newGuidButton.UseVisualStyleBackColor = false;
             this.newGuidButton.Click += new System.EventHandler(this.newGuidButton_Click);
             // 
-            // checkBox1
+            // conditionsCheckbox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(12, 193);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(96, 21);
-            this.checkBox1.TabIndex = 19;
-            this.checkBox1.Text = "Conditions";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.conditionsCheckbox.AutoSize = true;
+            this.conditionsCheckbox.Location = new System.Drawing.Point(12, 193);
+            this.conditionsCheckbox.Name = "conditionsCheckbox";
+            this.conditionsCheckbox.Size = new System.Drawing.Size(96, 21);
+            this.conditionsCheckbox.TabIndex = 19;
+            this.conditionsCheckbox.Text = "Conditions";
+            this.conditionsCheckbox.UseVisualStyleBackColor = true;
+            this.conditionsCheckbox.CheckedChanged += new System.EventHandler(this.conditionsCheckbox_CheckedChanged);
             // 
-            // checkBox2
+            // requiredCheckBox
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(114, 193);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(88, 21);
-            this.checkBox2.TabIndex = 20;
-            this.checkBox2.Text = "Required";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.requiredCheckBox.AutoSize = true;
+            this.requiredCheckBox.Location = new System.Drawing.Point(114, 193);
+            this.requiredCheckBox.Name = "requiredCheckBox";
+            this.requiredCheckBox.Size = new System.Drawing.Size(88, 21);
+            this.requiredCheckBox.TabIndex = 20;
+            this.requiredCheckBox.Text = "Required";
+            this.requiredCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // visibleCheckBox
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(208, 193);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(71, 21);
-            this.checkBox3.TabIndex = 21;
-            this.checkBox3.Text = "Visible";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.visibleCheckBox.AutoSize = true;
+            this.visibleCheckBox.Location = new System.Drawing.Point(208, 193);
+            this.visibleCheckBox.Name = "visibleCheckBox";
+            this.visibleCheckBox.Size = new System.Drawing.Size(71, 21);
+            this.visibleCheckBox.TabIndex = 21;
+            this.visibleCheckBox.Text = "Visible";
+            this.visibleCheckBox.UseVisualStyleBackColor = true;
             // 
             // JSONTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.visibleCheckBox);
+            this.Controls.Add(this.requiredCheckBox);
+            this.Controls.Add(this.conditionsCheckbox);
             this.Controls.Add(this.newGuidButton);
             this.Controls.Add(this.questionNameTextBox);
             this.Controls.Add(this.panel1);
@@ -618,9 +619,9 @@
         private System.Windows.Forms.TextBox questionNameTextBox;
         private System.Windows.Forms.Label totalNumQuestionsLabel;
         private System.Windows.Forms.Button newGuidButton;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox conditionsCheckbox;
+        private System.Windows.Forms.CheckBox requiredCheckBox;
+        private System.Windows.Forms.CheckBox visibleCheckBox;
     }
 }
 

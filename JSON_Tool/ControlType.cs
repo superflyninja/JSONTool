@@ -73,6 +73,33 @@ namespace JSON_Tool
     }
 
     #region structs
+
+    public struct ConditionalPropertyList
+    {
+        public List<ConditionalProperty> visible;//each conditional property effects an attribute of the question. For example visible or required
+
+        public ConditionalPropertyList(List<ConditionalProperty> theList)
+        {
+            visible = theList;
+        }
+    }
+
+    public struct ConditionalProperty
+    {
+        public string propertyValue;
+        public string left;
+        public string theOperator;//needs to be operator in JSON -> do searhc and replace at point of returnign the JSON as string
+        public string right;
+
+        public ConditionalProperty(string theValue, string _left, string _operator, string _right)
+        {
+            propertyValue = theValue;
+            left = _left;
+            theOperator = _operator;
+            right = _right;
+        }
+    }
+
     public struct option
     {
         public string key;
@@ -210,10 +237,16 @@ namespace JSON_Tool
     public class GenericQuestion : QuestionControlType
     {
         [JsonProperty(Order = 50)]
-        public List<option> options { get => theOptions; set => theOptions = value; }//need to look up how to ignore if empty
+        public List<option> options { get => theOptions; set => theOptions = value; }
         private List<option> theOptions;
 
-        public GenericQuestion(string theName, string theType) : base(theName)
+        [JsonIgnore]
+        public bool conditions { get; set; }
+
+        [JsonProperty(Order = 60)]
+        public ConditionalPropertyList conditionalProperties{ get; set; }
+
+    public GenericQuestion(string theName, string theType) : base(theName)
         {
             if (theType == JSONFormController.QuestionTypes.freeNote.ToString().ToLower())
             {
@@ -227,6 +260,11 @@ namespace JSON_Tool
         public bool ShouldSerializeoptions()//if options has not been initialised then it will not be serialized
         {
             return options != null;
+        }
+
+        public bool ShouldSerializeconditionalProperties()//if condition not active then it will not be serialized
+        {
+            return conditionalProperties.visible != null;//.visible.Count > 0;
         }
     }
 

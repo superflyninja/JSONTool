@@ -26,7 +26,8 @@ namespace JSON_Tool
             PopulateQuestionComboBox();
 
             formController = theController;
-            formInProgress = false;
+            formInProgress =  false;
+            visibleCheckBox.CheckState = CheckState.Checked;
         }
 
         private void testBtn_Click(object sender, EventArgs e)
@@ -120,10 +121,15 @@ namespace JSON_Tool
             if (formInProgress)
             {
                 string json = formController.GetFormJSON();
-                Clipboard.SetText(json);
-                MessageBox.Show($"JSON has been pasted to the clipboard", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+              //  Clipboard.SetText(json);
+              //  MessageBox.Show($"JSON has been pasted to the clipboard", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                CopyJSONToClipboard(json);
                 ResetInfo();
+            }
+            else
+            {
+                MessageBox.Show($"Start a new form to generate JSON", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             
         }
@@ -138,19 +144,33 @@ namespace JSON_Tool
                 }
                 else//now allowed to add a question.
                 {
-                    formController.AddQuestionNew(questionNameTextBox.Text, questionComboBox.SelectedItem.ToString());
+                    formController.AddQuestion(questionNameTextBox.Text, questionComboBox.SelectedItem.ToString(),conditionsCheckbox.Checked,requiredCheckBox.Checked,visibleCheckBox.Checked,true);
                     questionNameTextBox.Text = "";
+                    conditionsCheckbox.CheckState = CheckState.Unchecked;
+                    requiredCheckBox.CheckState = CheckState.Unchecked;
+                    visibleCheckBox.CheckState = CheckState.Checked;
                 }
 
                 UpdateInfo();
             }
             else
             {
-                MessageBox.Show($"To add a section start a new form first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show($"To add a section start a new form first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //if no form in progress then just copy the question json to the clipboard
+                string json = formController.GetQuestionJSON(questionNameTextBox.Text, questionComboBox.SelectedItem.ToString(), conditionsCheckbox.Checked, requiredCheckBox.Checked, visibleCheckBox.Checked,false);
+                CopyJSONToClipboard(json);
             }
         }
 
         #region Helper Methods
+
+        private void CopyJSONToClipboard(string theJSON)
+        {
+            Clipboard.SetText(theJSON);
+            MessageBox.Show($"JSON has been pasted to the clipboard", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+
         private void UpdateInfo()
         {
             //Update Current Form Panel
@@ -182,6 +202,10 @@ namespace JSON_Tool
             currentStepNameLabel.Text = "";
 
             currentSectionNameLabel.Text = "";
+
+            conditionsCheckbox.CheckState = CheckState.Unchecked;
+            requiredCheckBox.CheckState = CheckState.Unchecked;
+            visibleCheckBox.CheckState = CheckState.Checked;
         }
 
         private void PopulateQuestionComboBox()
@@ -196,6 +220,11 @@ namespace JSON_Tool
             Clipboard.SetText(guid);
 
             MessageBox.Show($"GUID\n{guid}\nhas been pasted to the clipboard", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void conditionsCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -17,6 +17,7 @@ namespace JSON_Tool
         public string displayName { get; set; }
 
         #region Structs
+
         public struct SubmissionDetails
         {
             public string submissionTypeId;
@@ -129,12 +130,12 @@ namespace JSON_Tool
             AddStep("Test Step 1");
             AddSection("Section 1");
 
-            AddQuestionNew("Display",JSONFormController.QuestionTypes.display.ToString());
-            AddQuestionNew("TextArea", JSONFormController.QuestionTypes.textArea.ToString());
-            AddQuestionNew("TextBox", JSONFormController.QuestionTypes.textbox.ToString());
-            AddQuestionNew("Radio", JSONFormController.QuestionTypes.radio.ToString());
-            AddQuestionNew("Free Note", JSONFormController.QuestionTypes.freeNote.ToString());
-            AddQuestionNew("Drop Down", JSONFormController.QuestionTypes.dropdown.ToString());
+            AddQuestion("Display",JSONFormController.QuestionTypes.display.ToString(),true);
+            AddQuestion("TextArea", JSONFormController.QuestionTypes.textArea.ToString(),true,true,true, true);
+            AddQuestion("TextBox", JSONFormController.QuestionTypes.textbox.ToString(), true);
+            AddQuestion("Radio", JSONFormController.QuestionTypes.radio.ToString(), true);
+            AddQuestion("Free Note", JSONFormController.QuestionTypes.freeNote.ToString(), true);
+            AddQuestion("Drop Down", JSONFormController.QuestionTypes.dropdown.ToString(), true);
 
         }
 
@@ -175,7 +176,9 @@ namespace JSON_Tool
             //at this point done with the form. so wipe it 
             FormInProgress = false;
 
-            return JsonConvert.SerializeObject(currentForm, Formatting.Indented);
+
+
+            return JsonConvert.SerializeObject(currentForm, Formatting.Indented).Replace("theOperator","operator");
         }
 
         #region Add Control Containers To Form
@@ -209,9 +212,10 @@ namespace JSON_Tool
         }
         #endregion
 
-        public void AddQuestionNew(string theName, string theType)
+        public GenericQuestion AddQuestion(string theName, string theType,bool partOfForm)
         {
-            EnsureSectionExists();
+          
+            
             theType = theType.ToLower();
 
             var q = new GenericQuestion(theName, theType);
@@ -223,17 +227,50 @@ namespace JSON_Tool
                 options.Add(new option(GenerateGUID(), "value2"));
                 q.options = options;
             }
-                
-            currentlyActiveSection.questions.Add(q);
+
+            if (partOfForm)
+            {
+                EnsureSectionExists();
+                currentlyActiveSection.questions.Add(q);
+            }
+            
 
             //QuestionTypes typeID = (QuestionTypes)Enum.Parse(typeof(QuestionTypes), theType);//Attempt to convert the string to question type id
 
             totalNumQuestions++;
+
+            return q;
         }
 
-        #region Helper Methods
+        public GenericQuestion AddQuestion(string theName, string theType,bool conditions, bool required, bool visible,bool soloQuestion)
+        {
+            var q = AddQuestion(theName,theType,soloQuestion);
 
-        private void EnsureSectionExists()//questions MUST be added to a section
+            q.required = required;
+            q.visible = visible;
+
+            if (conditions)
+            {
+                var list = new List<ConditionalProperty>();
+                list.Add(new ConditionalProperty("true","key1","EQUAL_TO","key2"));
+                q.conditionalProperties = new ConditionalPropertyList(list);
+            }
+
+            return q;
+        }
+
+        public string GetQuestionJSON(string theName, string theType, bool conditions, bool required, bool visible,bool soloQuestion)
+        {
+            var q = AddQuestion(theName, theType, conditions, required, visible, soloQuestion);
+            string theJSON = "";
+            theJSON = JsonConvert.SerializeObject(q, Formatting.Indented).Replace("theOperator", "operator");
+
+            return theJSON;
+        }
+
+            #region Helper Methods
+
+            private void EnsureSectionExists()//questions MUST be added to a section
         {
             if (currentlyActiveSection == null)
             {
