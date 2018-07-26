@@ -116,6 +116,28 @@ namespace JSON_Tool
             
         }
 
+        private void addListButton_Click(object sender, EventArgs e)
+        {
+            if (formInProgress)
+            {
+                if (listNameTextBox.Text.Length <= 0)
+                {
+                    MessageBox.Show($"List name cannot be blank", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    formController.AddList(listNameTextBox.Text);
+                    listNameTextBox.Text = "";//clear the box so that another list can be added
+                }
+
+                UpdateInfo();
+            }
+            else
+            {
+                MessageBox.Show($"To add a list start a new form first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void generateButton_Click(object sender, EventArgs e)
         {
             if (formInProgress)
@@ -192,6 +214,7 @@ namespace JSON_Tool
             formNameTextBox.Text = "";
             stepNameTextBox.Text = "";
             sectionNameTextBox.Text = "";
+            listNameTextBox.Text = "";
             questionNameTextBox.Text = "";
             infoFormNameLabel.Text = "";
             totalStepsLabel.Text = "";
@@ -226,5 +249,6 @@ namespace JSON_Tool
         {
 
         }
+
     }
 }

@@ -68,6 +68,7 @@ namespace JSON_Tool
             value = "";
             regSysKey = "";
             regSysType = "";
+
         }
 
     }
@@ -248,6 +249,12 @@ namespace JSON_Tool
 
     public GenericQuestion(string theName, string theType) : base(theName)
         {
+     /*       if (theType == JSONFormController.QuestionTypes.list.ToString().ToLower())
+            {
+                theType = "free-note";
+                value = theName;
+            }*/
+
             if (theType == JSONFormController.QuestionTypes.freeNote.ToString().ToLower())
             {
                 theType = "free-note";

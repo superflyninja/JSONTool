@@ -96,7 +96,6 @@ namespace JSON_Tool
             date,
             freeNote,
             radio,
-            list,
             dropdown
         };
 

@@ -77,6 +77,8 @@
             this.conditionsCheckbox = new System.Windows.Forms.CheckBox();
             this.requiredCheckBox = new System.Windows.Forms.CheckBox();
             this.visibleCheckBox = new System.Windows.Forms.CheckBox();
+            this.listNameTextBox = new System.Windows.Forms.TextBox();
+            this.addListButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.infoPanel.SuspendLayout();
             this.currentStepinfoPanel.SuspendLayout();
@@ -174,9 +176,9 @@
             // 
             // addQuestionBtn
             // 
-            this.addQuestionBtn.Location = new System.Drawing.Point(378, 117);
+            this.addQuestionBtn.Location = new System.Drawing.Point(378, 155);
             this.addQuestionBtn.Name = "addQuestionBtn";
-            this.addQuestionBtn.Size = new System.Drawing.Size(104, 24);
+            this.addQuestionBtn.Size = new System.Drawing.Size(104, 52);
             this.addQuestionBtn.TabIndex = 5;
             this.addQuestionBtn.Text = "Add Question";
             this.addQuestionBtn.UseVisualStyleBackColor = true;
@@ -193,7 +195,7 @@
             this.infoPanel.Controls.Add(this.infoNumSections);
             this.infoPanel.Controls.Add(this.label100);
             this.infoPanel.Controls.Add(this.infoHeader);
-            this.infoPanel.Location = new System.Drawing.Point(12, 220);
+            this.infoPanel.Location = new System.Drawing.Point(12, 280);
             this.infoPanel.Name = "infoPanel";
             this.infoPanel.Size = new System.Drawing.Size(470, 205);
             this.infoPanel.TabIndex = 6;
@@ -286,7 +288,7 @@
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 497);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(800, 22);
             this.statusStrip1.TabIndex = 7;
@@ -385,7 +387,7 @@
             // 
             this.questionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.questionComboBox.FormattingEnabled = true;
-            this.questionComboBox.Location = new System.Drawing.Point(12, 147);
+            this.questionComboBox.Location = new System.Drawing.Point(12, 183);
             this.questionComboBox.Name = "questionComboBox";
             this.questionComboBox.Size = new System.Drawing.Size(360, 24);
             this.questionComboBox.Sorted = true;
@@ -414,9 +416,9 @@
             // 
             // generateButton
             // 
-            this.generateButton.Location = new System.Drawing.Point(378, 147);
+            this.generateButton.Location = new System.Drawing.Point(378, 213);
             this.generateButton.Name = "generateButton";
-            this.generateButton.Size = new System.Drawing.Size(104, 67);
+            this.generateButton.Size = new System.Drawing.Size(104, 61);
             this.generateButton.TabIndex = 14;
             this.generateButton.Text = "Generate";
             this.generateButton.UseVisualStyleBackColor = true;
@@ -482,7 +484,7 @@
             // 
             // questionNameTextBox
             // 
-            this.questionNameTextBox.Location = new System.Drawing.Point(12, 118);
+            this.questionNameTextBox.Location = new System.Drawing.Point(12, 155);
             this.questionNameTextBox.Name = "questionNameTextBox";
             this.questionNameTextBox.Size = new System.Drawing.Size(360, 22);
             this.questionNameTextBox.TabIndex = 17;
@@ -501,7 +503,7 @@
             // conditionsCheckbox
             // 
             this.conditionsCheckbox.AutoSize = true;
-            this.conditionsCheckbox.Location = new System.Drawing.Point(12, 193);
+            this.conditionsCheckbox.Location = new System.Drawing.Point(12, 213);
             this.conditionsCheckbox.Name = "conditionsCheckbox";
             this.conditionsCheckbox.Size = new System.Drawing.Size(96, 21);
             this.conditionsCheckbox.TabIndex = 19;
@@ -512,7 +514,7 @@
             // requiredCheckBox
             // 
             this.requiredCheckBox.AutoSize = true;
-            this.requiredCheckBox.Location = new System.Drawing.Point(114, 193);
+            this.requiredCheckBox.Location = new System.Drawing.Point(122, 213);
             this.requiredCheckBox.Name = "requiredCheckBox";
             this.requiredCheckBox.Size = new System.Drawing.Size(88, 21);
             this.requiredCheckBox.TabIndex = 20;
@@ -522,18 +524,37 @@
             // visibleCheckBox
             // 
             this.visibleCheckBox.AutoSize = true;
-            this.visibleCheckBox.Location = new System.Drawing.Point(208, 193);
+            this.visibleCheckBox.Location = new System.Drawing.Point(216, 213);
             this.visibleCheckBox.Name = "visibleCheckBox";
             this.visibleCheckBox.Size = new System.Drawing.Size(71, 21);
             this.visibleCheckBox.TabIndex = 21;
             this.visibleCheckBox.Text = "Visible";
             this.visibleCheckBox.UseVisualStyleBackColor = true;
             // 
+            // listNameTextBox
+            // 
+            this.listNameTextBox.Location = new System.Drawing.Point(12, 122);
+            this.listNameTextBox.Name = "listNameTextBox";
+            this.listNameTextBox.Size = new System.Drawing.Size(360, 22);
+            this.listNameTextBox.TabIndex = 22;
+            // 
+            // addListButton
+            // 
+            this.addListButton.Location = new System.Drawing.Point(378, 122);
+            this.addListButton.Name = "addListButton";
+            this.addListButton.Size = new System.Drawing.Size(104, 23);
+            this.addListButton.TabIndex = 23;
+            this.addListButton.Text = "Add List";
+            this.addListButton.UseVisualStyleBackColor = true;
+            this.addListButton.Click += new System.EventHandler(this.addListButton_Click);
+            // 
             // JSONTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 519);
+            this.Controls.Add(this.addListButton);
+            this.Controls.Add(this.listNameTextBox);
             this.Controls.Add(this.visibleCheckBox);
             this.Controls.Add(this.requiredCheckBox);
             this.Controls.Add(this.conditionsCheckbox);
@@ -622,6 +643,8 @@
         private System.Windows.Forms.CheckBox conditionsCheckbox;
         private System.Windows.Forms.CheckBox requiredCheckBox;
         private System.Windows.Forms.CheckBox visibleCheckBox;
+        private System.Windows.Forms.TextBox listNameTextBox;
+        private System.Windows.Forms.Button addListButton;
     }
 }
 
