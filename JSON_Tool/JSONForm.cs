@@ -205,6 +205,7 @@ namespace JSON_Tool
         public void AddList(string theName)
         {
             EnsureStepExists();
+            EnsureSectionExists();
             currentlyActiveSection.questions.Add(new ListControl(theName));
         }
         #endregion
