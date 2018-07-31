@@ -175,8 +175,6 @@ namespace JSON_Tool
             //at this point done with the form. so wipe it 
             FormInProgress = false;
 
-
-
             return JsonConvert.SerializeObject(currentForm, Formatting.Indented).Replace("theOperator","operator");
         }
 

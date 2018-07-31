@@ -36,10 +36,9 @@ namespace JSON_Tool
             formController.NewForm("Test Form");
             formController.Test();
 
-            string json = formController.GetFormJSON();
-            Clipboard.SetText(json);
-            // string json = JsonConvert.SerializeObject(jf);
-            MessageBox.Show($"JSON has been pasted to the clipboard","Information",MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //string json = formController.GetFormJSON();
+            Clipboard.SetText(formController.GetFormJSON());
+            MessageBox.Show("JSON has been pasted to the clipboard","Information",MessageBoxButtons.OK, MessageBoxIcon.Information);
             
         }
 
@@ -55,7 +54,7 @@ namespace JSON_Tool
             {
                 if (formNameTextBox.Text.Length <= 0)//if no form name entered
                 {
-                    MessageBox.Show($"Form name cannot be blank", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Form name cannot be blank", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else//form name entered -> create new form
                 {
@@ -74,8 +73,7 @@ namespace JSON_Tool
             {
                 if (stepNameTextBox.Text.Length <= 0)
                 {
-                    // formController.AddStep("Tab");
-                    MessageBox.Show($"Step name cannot be blank", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Step name cannot be blank", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
                 {
@@ -87,7 +85,7 @@ namespace JSON_Tool
             }
             else
             {
-                MessageBox.Show($"To add a step start a new form first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("To add a step start a new form first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -98,7 +96,7 @@ namespace JSON_Tool
             {
                 if (sectionNameTextBox.Text.Length <= 0)
                 {
-                    MessageBox.Show($"Section name cannot be blank", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Section name cannot be blank", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
                 {
@@ -111,7 +109,7 @@ namespace JSON_Tool
             }
             else
             {
-                MessageBox.Show($"To add a section start a new form first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("To add a section start a new form first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }
@@ -122,7 +120,7 @@ namespace JSON_Tool
             {
                 if (listNameTextBox.Text.Length <= 0)
                 {
-                    MessageBox.Show($"List name cannot be blank", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("List name cannot be blank", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
                 {
@@ -134,7 +132,7 @@ namespace JSON_Tool
             }
             else
             {
-                MessageBox.Show($"To add a list start a new form first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("To add a list start a new form first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -142,16 +140,12 @@ namespace JSON_Tool
         {
             if (formInProgress)
             {
-                string json = formController.GetFormJSON();
-              //  Clipboard.SetText(json);
-              //  MessageBox.Show($"JSON has been pasted to the clipboard", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                CopyJSONToClipboard(json);
+                CopyJSONToClipboard(formController.GetFormJSON());
                 ResetInfo();
             }
             else
             {
-                MessageBox.Show($"Start a new form to generate JSON", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Start a new form to generate JSON", "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             
         }
